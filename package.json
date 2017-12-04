@@ -1,0 +1,23 @@
+{
+  "name": "parse-argx",
+  "version": "1.0.0",
+  "description": "Parse command line erguments",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/.bin/mocha -c ./tests"
+  },
+  "keywords": [
+    "parse",
+    "arguments",
+    "argument",
+    "args",
+    "argv",
+    "argx",
+    "cli"
+  ],
+  "author": "Roman Melnyk <email.rom.melnyk@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^4.0.1"
+  }
+}

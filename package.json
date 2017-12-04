@@ -2,7 +2,7 @@
   "name": "parse-argx",
   "version": "1.0.0",
   "description": "Parse command line erguments",
-  "main": "index.js",
+  "main": "parse-argx.js",
   "scripts": {
     "test": "node node_modules/.bin/mocha -c ./tests"
   },

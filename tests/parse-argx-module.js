@@ -2,7 +2,7 @@ const assert = require('assert');
 const parseArgx = require('../index');
 
 const DEFAULT_RESULT = {
-    isValid: false,
+    isValid: true,
     namedArgs: {},
     anonymousArgs: []
 };

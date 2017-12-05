@@ -3,6 +3,7 @@ const DEFAULT_OPTION = {
     mandatory: false,
     expectValue: false,
     defaultValue: true,
+    description: '',
 };
 
 
@@ -13,21 +14,21 @@ const DEFAULT_OPTION = {
  */
 function parseArgx(config, args) {
     const parsed = {
-        isValid: false,
-        namedArgs: {},
+        isValid: true,
+        debugMessage: '',
+        options: {},
         anonymousArgs: []
     };
+    ({ config, args } = prepareConfigAndArgs(config, args));
 
-    ({ config, args } = prepareConfigAndArgs(config,args));
-    if (!config.length) {
-        return parsed;
-    }
+    config.forEach((option) => {
+        if (!parsed.isValid) {
+            return;
+        }
 
-    while (config.length) {
-        const option = config.shift();
         let { name, mandatory, defaultValue: value, expectValue } = Object.assign({}, DEFAULT_OPTION, option);
         if (!name || !name.length) {
-            continue;
+            return;
         } else if (!Array.isArray(name)) {
             name = [ name ];
         }
@@ -38,8 +39,9 @@ function parseArgx(config, args) {
                 parsed.isValid = false;
                 return parsed;
             }
-            // set value
+            setValue(parsed.namedArgs, name, false);
         } else {
+            value = args[foundIndex]
             if (expectValue) {
                 value = args[foundIndex + 1];
                 if (!value || !value.substr || value.substr(0, 1) === '-') {
@@ -47,8 +49,9 @@ function parseArgx(config, args) {
                     return parsed;
                 }
             }
+            setValue(parsed.namedArgs, name, value);
         }
-    }
+    });
 
     return parsed;
 }
@@ -80,14 +83,15 @@ function prepareConfigAndArgs(config, args) {
 }
 
 
-function prepareSingleOption(option) {
-    if (!option.name) {
-        option.name = []
-    } else if (!Array.isArray(option.name)) {
-        option.name = [ option.name ];
-    }
+function isParameter(value) {
+    return value && value[0] === '-';
+}
 
 
+function setValue(destination, name, value) {
+    name.forEach((n) => {
+        destination[n] = value;
+    });
 }
 
 

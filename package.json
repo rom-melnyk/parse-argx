@@ -4,7 +4,8 @@
   "description": "Parse command line erguments",
   "main": "parse-argx.js",
   "scripts": {
-    "test": "node node_modules/.bin/mocha -c ./tests"
+    "test": "node node_modules/.bin/mocha -c ./tests",
+    "test:win": "node node_modules/mocha/bin/_mocha -c ./tests"
   },
   "keywords": [
     "parse",
